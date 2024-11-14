@@ -21,8 +21,6 @@ func ConectDB() (*sql.DB, error) {
 		log.Fatal("Error conectando a PostgreSQL", err)
 	}
 
-	defer db.Close()
-
 	//Probar la conexión
 	err = db.Ping()
 	if err != nil {
@@ -35,7 +33,8 @@ func ConectDB() (*sql.DB, error) {
 		idInstruccion SERIAL PRIMARY KEY,
 		fechaOperacion VARCHAR(20),
 		claveEmisor INTEGER,
-		folioConsecutivo INTEGER
+		folioConsecutivo INTEGER,
+		numAltaEstudiantes INTEGER
 	)`
 	_, err = db.Exec(crearInstruccionEnvio)
 	if err != nil {

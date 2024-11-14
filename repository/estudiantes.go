@@ -6,20 +6,20 @@ import (
 )
 
 type EstudianteRepository interface {
-	GetEstudiantesActivos() ([]models.Estudiante, error)
+	LeerEstudiantesActivos() ([]models.Estudiante, error)
 }
 
-//Estructura para implementar
+// Estructura para implementar
 type EstudianteRepo struct {
 	db *sql.DB
 }
 
-//Constructor para el repositorio de estudiantes
+// Constructor para el repositorio de estudiantes
 func NewEstudianteRepo(db *sql.DB) EstudianteRepository {
 	return &EstudianteRepo{db: db}
 }
 
-func (r *EstudianteRepo) GetEstudiantesActivos() ([]models.Estudiante, error) {
+func (r *EstudianteRepo) LeerEstudiantesActivos() ([]models.Estudiante, error) {
 	rows, err := r.db.Query("SELECT idEstudiante, nombre, direccion, email, telefono, altaLocal, altaSep FROM estudiantes WHERE altaLocal = true")
 	if err != nil {
 		return nil, err
