@@ -74,6 +74,10 @@ func (s *SensadoService) ProcessStudents() error {
 
 // obtenerFolioConsecutivo genera un folio consecutivo para la instrucción
 func (s *SensadoService) obtenerFolioConsecutivo() int32 {
-	//TODO definir lógica de folios
-	return 1
+	lastFolio, err := s.InstruccionRepo.GetLastFolio()
+	if err != nil {
+		log.Println("Error al obtener el último folio:", err)
+		return 1
+	}
+	return lastFolio + 1
 }

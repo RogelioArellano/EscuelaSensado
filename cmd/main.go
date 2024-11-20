@@ -5,6 +5,7 @@ import (
 	"log"
 )
 
+// TODO mantener encendido el microservicio
 func main() {
 	//Inicializar aplicación
 	app, err := app.Initialize()
@@ -16,10 +17,14 @@ func main() {
 	defer app.DB.Close()
 	defer app.Service.KafkaProducer.Close()
 
+	log.Println("***********Iniciando procesamiento de estudiantes.***********")
+
 	//Ejecutamos el proceso principal
 	err = app.Service.ProcessStudents()
 	if err != nil {
-		log.Println("Error al procesar estudiantes")
+		log.Fatal("Error al procesar estudiantes")
 	}
+
+	log.Println("***********Procesamiento completado exitosamente.***********")
 
 }
